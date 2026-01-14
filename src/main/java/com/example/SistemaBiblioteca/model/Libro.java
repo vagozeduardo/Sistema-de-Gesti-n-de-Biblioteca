@@ -31,6 +31,6 @@ public class Libro {
     private String genero;
 
     private int cantidadDisponible;
-    
+
 
 }
