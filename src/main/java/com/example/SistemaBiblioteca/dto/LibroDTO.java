@@ -17,6 +17,6 @@ public class LibroDTO {
     private String ISBN;
     private LocalDate anioPublicacion;
     private String genero;
-    private int cantidadDisponible;
+    private Integer cantidadDisponible;
 
 }

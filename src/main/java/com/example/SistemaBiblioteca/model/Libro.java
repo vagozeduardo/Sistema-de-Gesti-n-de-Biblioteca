@@ -1,16 +1,14 @@
 package com.example.SistemaBiblioteca.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter @Setter
+@Builder
 
 @Entity
 public class Libro {
@@ -30,7 +28,7 @@ public class Libro {
 
     private String genero;
 
-    private int cantidadDisponible;
+    private Integer cantidadDisponible;
 
 
 }
