@@ -46,7 +46,7 @@ public class LibroController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/{termino}")
+    @GetMapping("/search")
     public ResponseEntity<List<LibroDTO>> busquedaLibro(@RequestParam String termino){
 
         return ResponseEntity.ok(iLibroService.busquedaPorTermino(termino));
