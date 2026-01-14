@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface ILibroService {
 
     List<LibroDTO> traerDatos();
-    Optional<LibroDTO> traerPorId();
+    Optional<LibroDTO> traerPorId( Integer id);
     LibroDTO crear(LibroDTO libroDTO);
     LibroDTO actualizarLibro(Integer id, LibroDTO libroDTO);
     void  eliminar (Integer id);

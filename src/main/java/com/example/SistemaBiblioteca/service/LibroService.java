@@ -5,10 +5,12 @@ import com.example.SistemaBiblioteca.mapper.Mapper;
 import com.example.SistemaBiblioteca.model.Libro;
 import com.example.SistemaBiblioteca.repository.LibroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class LibroService implements ILibroService {
 
 
@@ -21,8 +23,8 @@ public class LibroService implements ILibroService {
     }
 
     @Override
-    public Optional<LibroDTO> traerPorId() {
-        return Optional.empty();
+    public Optional<LibroDTO> traerPorId(Integer id) {
+        return repo.findById(id).map(Mapper::toDTO);
     }
 
     @Override
