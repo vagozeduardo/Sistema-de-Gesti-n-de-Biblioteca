@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  sistema_de_gestion_de_biblioteca: #nombre de la app establecido en application.properties
+    build: SistemaBiblioteca #nombre de la carpeta donde está el DockerFile
+    mem_limit: 512m
+    ports:
+      - "8080:8080"
+    environment:
+      DB_URL: jdbc:mysql://pruebaSistemBibli:3306/test?createDatabaseIfNotExist=true&serverTimezone=UTC
+      DB_USER_NAME: root
+      DB_PASSWORD: makeitbundem
+    restart: always
+    depends_on:
+      pruebaSistemBibli:
+          condition: service_healthy
+  pruebaSistemBibli: #configuraciones de base de datos dockerizada
+    image: mysql:8.0.33 #misma versión que esté en el pom
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: makeitbundem
+      MYSQL_PASSWORD: makeitbundem
+      MYSQL_DATABASE: test
+    restart: always
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 10s
+      retries: 10
