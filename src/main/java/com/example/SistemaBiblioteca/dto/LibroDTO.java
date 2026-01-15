@@ -2,6 +2,7 @@ package com.example.SistemaBiblioteca.dto;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
@@ -36,5 +37,11 @@ public class LibroDTO {
 
     @Min(value = 0, message = "El stock no puede ser negativo")
     private Integer cantidadDisponible;
+
+    // validar si el DTO tiene datos o no
+    @JsonIgnore
+    public boolean isTotalmenteVacio() {
+        return titulo == null && autor == null && ISBN == null && anioPublicacion == null && genero == null && cantidadDisponible == null;
+    }
 
 }

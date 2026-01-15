@@ -8,6 +8,7 @@ import com.example.SistemaBiblioteca.model.Libro;
 import com.example.SistemaBiblioteca.repository.LibroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -58,13 +59,17 @@ public class LibroService implements ILibroService {
         // existe el producto
         Libro libro = repo.findById(id)
                 .orElseThrow(() -> new NotFoundException("No se puede actualizar. El libro con ID: " + id + ", no existe."));
+        if(libroDTO.isTotalmenteVacio()) throw new ConflictException("No se envio nada a actualizar");
 
-        if (libroDTO.getTitulo() != null) libro.setTitulo(libroDTO.getTitulo());
-        if (libroDTO.getAutor() != null) libro.setAutor(libroDTO.getAutor());
-        if (libroDTO.getISBN() != null) libro.setISBN(libroDTO.getISBN());
+        if (libroDTO.getTitulo() != null && !libroDTO.getTitulo().isBlank()) libro.setTitulo(libroDTO.getTitulo());
+        if (libroDTO.getAutor() != null && !libroDTO.getAutor().isBlank()) libro.setAutor(libroDTO.getAutor());
+        if (libroDTO.getISBN() != null && !libroDTO.getISBN().isBlank()) libro.setISBN(libroDTO.getISBN());
         if (libroDTO.getAnioPublicacion() != null) libro.setAnioPublicacion(libroDTO.getAnioPublicacion());
-        if (libroDTO.getGenero() != null) libro.setGenero(libroDTO.getGenero());
-        if (libroDTO.getCantidadDisponible() != null) libro.setCantidadDisponible(libroDTO.getCantidadDisponible());
+        if (libroDTO.getGenero() != null && !libroDTO.getGenero().isBlank()) libro.setGenero(libroDTO.getGenero());
+        if (libroDTO.getCantidadDisponible() != null){
+            if (libroDTO.getCantidadDisponible() < 0) throw new ConflictException("La cantidad no puede ser negativo");
+            libro.setCantidadDisponible(libroDTO.getCantidadDisponible());
+        }
 
         return Mapper.toDTO(repo.save(libro));
     }
