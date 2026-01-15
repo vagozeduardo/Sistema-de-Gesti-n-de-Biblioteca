@@ -2,6 +2,7 @@ package com.example.SistemaBiblioteca.controller;
 
 
 import com.example.SistemaBiblioteca.dto.LibroDTO;
+import com.example.SistemaBiblioteca.exception.NotFoundException;
 import com.example.SistemaBiblioteca.service.ILibroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,7 @@ public class LibroController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<LibroDTO>> obtenerPorId(@PathVariable Integer id){
+    public ResponseEntity<Optional<LibroDTO>> obtenerPorId(@PathVariable Integer id) {
         Optional<LibroDTO> libro = iLibroService.traerPorId(id);
         return ResponseEntity.ok(libro);
     }
@@ -36,7 +37,7 @@ public class LibroController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<LibroDTO> actualizarLibro(@PathVariable Integer id,@RequestBody LibroDTO dto){
+    public ResponseEntity<LibroDTO> actualizarLibro(@PathVariable Integer id,@RequestBody LibroDTO dto) {
         return ResponseEntity.ok(iLibroService.actualizarLibro(id,dto));
     }
 

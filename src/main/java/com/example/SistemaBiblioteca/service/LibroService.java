@@ -1,6 +1,7 @@
 package com.example.SistemaBiblioteca.service;
 
 import com.example.SistemaBiblioteca.dto.LibroDTO;
+import com.example.SistemaBiblioteca.exception.NotFoundException;
 import com.example.SistemaBiblioteca.mapper.Mapper;
 import com.example.SistemaBiblioteca.model.Libro;
 import com.example.SistemaBiblioteca.repository.LibroRepository;
@@ -23,7 +24,10 @@ public class LibroService implements ILibroService {
     }
 
     @Override
-    public Optional<LibroDTO> traerPorId(Integer id) {
+    public Optional<LibroDTO> traerPorId(Integer id){
+        Optional<Libro> libroEsta = repo.findById(id);
+        if (!libroEsta.isPresent())
+            throw new NotFoundException("El libro con el id: "+id+" no existe");
         return repo.findById(id).map(Mapper::toDTO);
     }
 
@@ -45,7 +49,7 @@ public class LibroService implements ILibroService {
 
         // existe el producto
         Libro libro = repo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Dato no encontrado"));
+                .orElseThrow(() -> new NotFoundException("No se puede actualizar. El libro con ID: " + id + ", no existe."));
 
         if (libroDTO.getTitulo()!=null) libro.setTitulo(libroDTO.getTitulo());
         if (libroDTO.getAutor()!=null) libro.setAutor(libroDTO.getAutor());

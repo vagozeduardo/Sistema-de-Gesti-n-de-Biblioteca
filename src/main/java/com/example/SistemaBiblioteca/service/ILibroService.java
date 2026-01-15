@@ -1,6 +1,7 @@
 package com.example.SistemaBiblioteca.service;
 
 import com.example.SistemaBiblioteca.dto.LibroDTO;
+import com.example.SistemaBiblioteca.exception.NotFoundException;
 
 import java.util.List;
 import java.util.Optional;
