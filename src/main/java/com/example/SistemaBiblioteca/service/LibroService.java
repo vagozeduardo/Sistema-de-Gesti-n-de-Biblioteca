@@ -1,6 +1,7 @@
 package com.example.SistemaBiblioteca.service;
 
 import com.example.SistemaBiblioteca.dto.LibroDTO;
+import com.example.SistemaBiblioteca.exception.ConflictException;
 import com.example.SistemaBiblioteca.exception.NotFoundException;
 import com.example.SistemaBiblioteca.mapper.Mapper;
 import com.example.SistemaBiblioteca.model.Libro;
@@ -33,6 +34,11 @@ public class LibroService implements ILibroService {
 
     @Override
     public LibroDTO crear(LibroDTO libroDTO) {
+        String ISBN = libroDTO.getISBN();
+        var libroEsta = repo.existsByISBN(ISBN);
+        if (libroEsta){
+            throw new ConflictException("El ISBN ya esta registrado");
+        }
 
 
         var libro = Libro.builder()
