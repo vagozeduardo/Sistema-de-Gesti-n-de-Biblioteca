@@ -8,7 +8,6 @@ import com.example.SistemaBiblioteca.model.Libro;
 import com.example.SistemaBiblioteca.repository.LibroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -40,7 +39,6 @@ public class LibroService implements ILibroService {
         if (libroEsta){
             throw new ConflictException("El ISBN ya esta registrado");
         }
-
 
         var libro = Libro.builder()
                 .titulo(libroDTO.getTitulo())
