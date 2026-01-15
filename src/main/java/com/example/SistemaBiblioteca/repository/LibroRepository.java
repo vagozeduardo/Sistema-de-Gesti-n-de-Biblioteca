@@ -10,4 +10,6 @@ public interface LibroRepository extends JpaRepository<Libro,Integer> {
     // Busqueda (query) personalizada ya sea con titulo o autor
     List<Libro> findByTituloIgnoreCaseOrAutorIgnoreCase(String titulo, String autor);
 
+
+
 }

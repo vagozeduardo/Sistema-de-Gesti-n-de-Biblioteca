@@ -24,15 +24,17 @@ public class LibroService implements ILibroService {
     }
 
     @Override
-    public Optional<LibroDTO> traerPorId(Integer id){
+    public Optional<LibroDTO> traerPorId(Integer id) {
         Optional<Libro> libroEsta = repo.findById(id);
         if (!libroEsta.isPresent())
-            throw new NotFoundException("El libro con el id: "+id+" no existe");
+            throw new NotFoundException("El libro con el id: " + id + " no existe");
         return repo.findById(id).map(Mapper::toDTO);
     }
 
     @Override
     public LibroDTO crear(LibroDTO libroDTO) {
+
+
         var libro = Libro.builder()
                 .titulo(libroDTO.getTitulo())
                 .autor(libroDTO.getAutor())
@@ -51,12 +53,12 @@ public class LibroService implements ILibroService {
         Libro libro = repo.findById(id)
                 .orElseThrow(() -> new NotFoundException("No se puede actualizar. El libro con ID: " + id + ", no existe."));
 
-        if (libroDTO.getTitulo()!=null) libro.setTitulo(libroDTO.getTitulo());
-        if (libroDTO.getAutor()!=null) libro.setAutor(libroDTO.getAutor());
-        if (libroDTO.getISBN()!=null) libro.setISBN(libroDTO.getISBN());
-        if (libroDTO.getAnioPublicacion()!=null) libro.setAnioPublicacion(libroDTO.getAnioPublicacion());
-        if (libroDTO.getGenero()!=null) libro.setGenero(libroDTO.getGenero());
-        if (libroDTO.getCantidadDisponible()!=null) libro.setCantidadDisponible(libroDTO.getCantidadDisponible());
+        if (libroDTO.getTitulo() != null) libro.setTitulo(libroDTO.getTitulo());
+        if (libroDTO.getAutor() != null) libro.setAutor(libroDTO.getAutor());
+        if (libroDTO.getISBN() != null) libro.setISBN(libroDTO.getISBN());
+        if (libroDTO.getAnioPublicacion() != null) libro.setAnioPublicacion(libroDTO.getAnioPublicacion());
+        if (libroDTO.getGenero() != null) libro.setGenero(libroDTO.getGenero());
+        if (libroDTO.getCantidadDisponible() != null) libro.setCantidadDisponible(libroDTO.getCantidadDisponible());
 
         return Mapper.toDTO(repo.save(libro));
     }
@@ -72,9 +74,9 @@ public class LibroService implements ILibroService {
 
     @Override
     public List<LibroDTO> busquedaPorTermino(String termino) {
-                return repo.findByTituloIgnoreCaseOrAutorIgnoreCase(termino,termino)
-                        .stream()
-                        .map(Mapper::toDTO)
-                        .toList();
+        return repo.findByTituloIgnoreCaseOrAutorIgnoreCase(termino, termino)
+                .stream()
+                .map(Mapper::toDTO)
+                .toList();
     }
 }

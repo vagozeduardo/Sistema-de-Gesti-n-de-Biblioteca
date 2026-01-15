@@ -4,6 +4,7 @@ package com.example.SistemaBiblioteca.controller;
 import com.example.SistemaBiblioteca.dto.LibroDTO;
 import com.example.SistemaBiblioteca.exception.NotFoundException;
 import com.example.SistemaBiblioteca.service.ILibroService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +32,7 @@ public class LibroController {
     }
 
     @PostMapping
-    public ResponseEntity<LibroDTO> crearDato(@RequestBody LibroDTO libroDTO){
+    public ResponseEntity<LibroDTO> crearDato(@Valid @RequestBody LibroDTO libroDTO){
         LibroDTO libroCrear = iLibroService.crear(libroDTO);
         return ResponseEntity.created(URI.create("/api/books"+libroCrear.getId())).body(libroCrear);
     }
