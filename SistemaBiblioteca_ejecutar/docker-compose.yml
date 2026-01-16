@@ -1,0 +1,30 @@
+services:
+  # Cambiamos el nombre del servicio a 'db' para que sea simple
+  db:
+    image: mysql:8.0.33
+    container_name: biblioteca-db
+    environment:
+      MYSQL_DATABASE: test
+      MYSQL_ROOT_PASSWORD: makeitbundem
+    volumes:
+      - ./data.sql:/docker-entrypoint-initdb.d/data.sql
+    ports:
+      - "3307:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 10s
+      retries: 10
+
+  api:
+    image: eduardovazquezgo/sistema-biblioteca:v2
+    container_name: biblioteca-api
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      # LA CLAVE: Aquí usamos 'db' porque así se llama el servicio arriba
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/test?createDatabaseIfNotExist=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: makeitbundem
