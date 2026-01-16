@@ -1,6 +1,7 @@
 package com.example.SistemaBiblioteca.service;
 
 import com.example.SistemaBiblioteca.dto.LibroDTO;
+import com.example.SistemaBiblioteca.dto.LibroUpdateDTO;
 import com.example.SistemaBiblioteca.exception.NotFoundException;
 
 import java.util.List;
@@ -12,7 +13,7 @@ public interface ILibroService {
     List<LibroDTO> traerDatos();
     Optional<LibroDTO> traerPorId(Integer id);
     LibroDTO crear(LibroDTO libroDTO);
-    LibroDTO actualizarLibro(Integer id, LibroDTO libroDTO);
+    LibroUpdateDTO actualizarLibro(Integer id, LibroUpdateDTO libroUpdateDTODTO);
     void  eliminar (Integer id);
     List<LibroDTO> busquedaPorTermino(String termino);
 

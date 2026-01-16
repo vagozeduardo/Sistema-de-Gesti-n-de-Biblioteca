@@ -1,6 +1,7 @@
 package com.example.SistemaBiblioteca.service;
 
 import com.example.SistemaBiblioteca.dto.LibroDTO;
+import com.example.SistemaBiblioteca.dto.LibroUpdateDTO;
 import com.example.SistemaBiblioteca.exception.ConflictException;
 import com.example.SistemaBiblioteca.exception.NotFoundException;
 import com.example.SistemaBiblioteca.mapper.Mapper;
@@ -85,7 +86,7 @@ public class LibroService implements ILibroService {
 
     // metodo para actualizar libro por Id
     @Override
-    public LibroDTO actualizarLibro(Integer id, LibroDTO libroDTO) {
+    public LibroUpdateDTO actualizarLibro(Integer id, LibroUpdateDTO libroDTO) {
 
         // validaciones para evitar errores
         // busqueda para si existe el producto
@@ -114,7 +115,7 @@ public class LibroService implements ILibroService {
         }
 
         // se guarda lo obtenido y se mapea
-        return Mapper.toDTO(repo.save(libro));
+        return Mapper.toUpdateDTO(repo.save(libro));
     }
 
     // Logica para eliminar el dato

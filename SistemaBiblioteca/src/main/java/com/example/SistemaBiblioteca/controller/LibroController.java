@@ -2,6 +2,7 @@ package com.example.SistemaBiblioteca.controller;
 
 
 import com.example.SistemaBiblioteca.dto.LibroDTO;
+import com.example.SistemaBiblioteca.dto.LibroUpdateDTO;
 import com.example.SistemaBiblioteca.service.ILibroService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -10,6 +11,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -19,23 +21,24 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/books")
 @Tag(name = "Libros", description = "Operaciones para la gestión de los libros")
+@Validated
 public class LibroController {
 
     @Autowired
     ILibroService iLibroService;
 
-    @Operation(summary = "Traer todos libros(datos)",description = "Se trae todos los datos de la base")
+    @Operation(summary = "Traer todos libros(datos)", description = "Se trae todos los datos de la base")
     @GetMapping
     public ResponseEntity<List<LibroDTO>> obtenerLibros() {
         return ResponseEntity.ok(iLibroService.traerDatos());
     }
 
-    @Operation(summary = "Buscar libro por el \"id\"",description = "Se busca el libro(Dato) en la base " +
+    @Operation(summary = "Buscar libro por el \"id\"", description = "Se busca el libro(Dato) en la base " +
             " con el id que se ingreso")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "404",description = "Si el libro no es encontrado marca" +
+            @ApiResponse(responseCode = "404", description = "Si el libro no es encontrado marca" +
                     "error 404 de que no existe el dato"),
-            @ApiResponse(responseCode = "200",description = "Devuelve el codigo 200 si el dato es encontrado")
+            @ApiResponse(responseCode = "200", description = "Devuelve el codigo 200 si el dato es encontrado")
     })
     @GetMapping("/{id}")
     public ResponseEntity<Optional<LibroDTO>> obtenerPorId(@PathVariable Integer id) {
@@ -64,12 +67,14 @@ public class LibroController {
             @ApiResponse(responseCode = "409", description = "No se envio datos para actulizar")
     })
     @PutMapping("/{id}")
-    public ResponseEntity<LibroDTO> actualizarLibro(@PathVariable Integer id, @RequestBody LibroDTO dto) {
+    public ResponseEntity<LibroUpdateDTO> actualizarLibro(
+            @PathVariable Integer id,
+            @Valid @RequestBody LibroUpdateDTO dto) {
         return ResponseEntity.ok(iLibroService.actualizarLibro(id, dto));
     }
 
-    @Operation(summary = "Eliminar un libro",description = "Elimina el libro con el id ingresado")
-    @ApiResponse(responseCode = "404",description = "Se marca como error 404 sin no se encuentra al " +
+    @Operation(summary = "Eliminar un libro", description = "Elimina el libro con el id ingresado")
+    @ApiResponse(responseCode = "404", description = "Se marca como error 404 sin no se encuentra al " +
             " dato en la base")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminar(@PathVariable Integer id) {
@@ -78,7 +83,7 @@ public class LibroController {
     }
 
     @Operation(summary = "Buscar libro por parametro"
-    ,description = "Se busca el libro por el titulo o autor")
+            , description = "Se busca el libro por el titulo o autor")
     @GetMapping("/search")
     public ResponseEntity<List<LibroDTO>> busquedaLibro(@RequestParam String termino) {
 
