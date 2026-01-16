@@ -10,6 +10,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -29,8 +32,9 @@ public class LibroController {
 
     @Operation(summary = "Traer todos libros(datos)", description = "Se trae todos los datos de la base")
     @GetMapping
-    public ResponseEntity<List<LibroDTO>> obtenerLibros() {
-        return ResponseEntity.ok(iLibroService.traerDatos());
+    public ResponseEntity<Page<LibroDTO>> obtenerLibros(
+            @PageableDefault(page = 0, size = 5) Pageable pageable) {
+        return ResponseEntity.ok(iLibroService.traerDatos(pageable));
     }
 
     @Operation(summary = "Buscar libro por el \"id\"", description = "Se busca el libro(Dato) en la base " +
@@ -85,9 +89,11 @@ public class LibroController {
     @Operation(summary = "Buscar libro por parametro"
             , description = "Se busca el libro por el titulo o autor")
     @GetMapping("/search")
-    public ResponseEntity<List<LibroDTO>> busquedaLibro(@RequestParam String termino) {
-
-        return ResponseEntity.ok(iLibroService.busquedaPorTermino(termino));
+    public ResponseEntity<Page<LibroDTO>> busquedaLibro(
+            @RequestParam(required = false) String termino,
+            @PageableDefault(page = 0, size = 5) Pageable pageable) {
+        System.out.println("-------------------> "+termino+"<------------------------------------");
+        return ResponseEntity.ok(iLibroService.busquedaPorTermino(termino,pageable));
     }
 
 }

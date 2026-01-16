@@ -8,6 +8,8 @@ import com.example.SistemaBiblioteca.mapper.Mapper;
 import com.example.SistemaBiblioteca.model.Libro;
 import com.example.SistemaBiblioteca.repository.LibroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,18 +29,12 @@ public class LibroService implements ILibroService {
 
     // logica para traer los datos
     /*
-     * Este metodo/funcion es de tipo list que se basa en al modelo DTO.
-     * 1. retorna todo lo encontrado por la repo con eso se usa el ".findAll()".
-     * 2. luego se usa el ".stream()" que sustituye el for o la iteracion uno por uno los
-     * datos, este lo hace de forma mas rapida (en terminos de codigo, cantidad de lines, etc.),
-     * nombrado como el que permitira el flujo de datos.
-     * 3. ".map(Mapper::toDTO)" mapeara/generara el flujo mediante la plantilla DTO relacionando
-     * lo encontrado a cada campo (definido en el Mapper.class) se usa la funcion toDTO (nombrado asi en la declaracion del mapper)
-     * 4. y el ".toList()" todo lo anterior de tipo list o en formato de lista sera el flujo.
+     *
      */
     @Override
-    public List<LibroDTO> traerDatos() {
-        return repo.findAll().stream().map(Mapper::toDTO).toList();
+    public Page<LibroDTO> traerDatos(Pageable pageable) {
+        Page<Libro> paginadoLibros = repo.findAll(pageable);
+        return paginadoLibros.map(libro -> Mapper.toDTO(libro));
     }
 
 
@@ -132,13 +128,10 @@ public class LibroService implements ILibroService {
 
     // Logica de busqueda por termino
     @Override
-    public List<LibroDTO> busquedaPorTermino(String termino) {
+    public Page<LibroDTO> busquedaPorTermino(String termino,Pageable pageable) {
         // se retorna todo lo encontrado que cumpla una de las 2 condiciones
         // ignorando las Mayusculas y Minusculas.
         // en este caso se busca con contenido del termino en el campo y no por coincidencia exacta
-        return repo.findByTituloContainingIgnoreCaseOrAutorContainingIgnoreCase(termino, termino)
-                .stream()
-                .map(Mapper::toDTO)
-                .toList();
+        return repo.findByTituloContainingIgnoreCaseOrAutorContainingIgnoreCase(termino,pageable).map(Mapper::toDTO);
     }
 }

@@ -15,3 +15,16 @@ INSERT IGNORE INTO libro (titulo, autor, anio_publicacion, genero, cantidad_disp
 INSERT IGNORE INTO libro (titulo, autor, anio_publicacion, genero, cantidad_disponible, isbn) VALUES ('Fundación', 'Isaac Asimov', 1951, 'Ciencia Ficción', 18, '9780553293357');
 INSERT IGNORE INTO libro (titulo, autor, anio_publicacion, genero, cantidad_disponible, isbn) VALUES ('Matar a un ruiseñor', 'Harper Lee', 1960, 'Drama', 3, '9780061120084');
 INSERT IGNORE INTO libro (titulo, autor, anio_publicacion, genero, cantidad_disponible, isbn) VALUES ('Sapiens: De animales a dioses', 'Yuval Noah Harari', 2011, 'Historia', 25, '9780062310200');
+-- Trilogía Metro de Dmitry Glukhovsky
+INSERT IGNORE INTO libro (titulo, autor, anio_publicacion, genero, cantidad_disponible, isbn)
+VALUES ('Metro 2033', 'Dmitry Glukhovsky', 2005, 'Ciencia ficción post-apocalíptica', 10, '9780575086258');
+
+INSERT IGNORE INTO libro (titulo, autor, anio_publicacion, genero, cantidad_disponible, isbn)
+VALUES ('Metro 2034', 'Dmitry Glukhovsky', 2009, 'Ciencia ficción post-apocalíptica', 8, '9785699405405');
+
+INSERT IGNORE INTO libro (titulo, autor, anio_publicacion, genero, cantidad_disponible, isbn)
+VALUES ('Metro 2035', 'Dmitry Glukhovsky', 2015, 'Ciencia ficción post-apocalíptica', 7, '9781539930723');
+
+-- La Odisea (ejemplo de edición antigua)
+INSERT IGNORE INTO libro (titulo, autor, anio_publicacion, genero, cantidad_disponible, isbn)
+VALUES ('La Odisea', 'Homero', 1921, 'Épica / Literatura clásica', 5, '9780140449112');
