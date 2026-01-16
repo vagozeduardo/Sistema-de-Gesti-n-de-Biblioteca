@@ -30,17 +30,37 @@ Proyecto base para el desarrollo de una API REST utilizando:
   docker images
 
 ## 4. Ejecutar un contenedor en local
-- Usa `docker run` para levantar la imagen:
-  ```bash
-  docker run -d -p 8080:8080 --name biblioteca-api eduardovazquezgo/sistema-biblioteca:v2
+- Descarga los 2 archivos que estan en la carpet: `SistemaBiblioteca_ejecutar` que son:
+  - data.sql
+  - docker-compose.yml
 
-## 5. cosas adicionales
+- Guardalos en una carpeta ambos archivos.
+> [!IMPORTANT]
+> SI el puente esta siendo usado puede realizar lo siguiente:
+> |Servicio|Línea en YAML|Qué cambiar si falla|
+> |--------|-------------|---------------------|
+> |API|	8080:8080|Cambia el primer 8080 por 9090|
+> |DB|3307:3306|Cambia el 3307 por 3308|
+> 
+> pueda que funcione. ._.
+
+## 5. A ejecutar
+
+1. abre la terminal del sistema en la carpeta donde se guardo los archivos descargados.
+2. ejecute:
+   ```bash
+        docker-compose up -d
+3. disfrute, ya puede usarlo en el navegador o en postman.
+
+## 6. cosas adicionales
 - Acceso rápido
+- API Base: 
   ```bash
-  API Base: http://localhost:8080/api/libros
+  http://localhost:8080/api/libros
 - documentacion con swagger
+- Documentación: 
   ```BASH
-  Documentación: http://localhost:8080/swagger-ui/index.html
+  http://localhost:8080/swagger-ui/index.html
 
 ### Guía de los metodos de controller o Endpoints
 
