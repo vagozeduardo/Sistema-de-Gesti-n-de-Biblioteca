@@ -92,7 +92,6 @@ public class LibroController {
     public ResponseEntity<Page<LibroDTO>> busquedaLibro(
             @RequestParam(required = false) String termino,
             @PageableDefault(page = 0, size = 5) Pageable pageable) {
-        System.out.println("-------------------> "+termino+"<------------------------------------");
         return ResponseEntity.ok(iLibroService.busquedaPorTermino(termino,pageable));
     }
 
