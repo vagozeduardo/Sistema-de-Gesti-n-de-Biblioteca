@@ -64,6 +64,9 @@ Proyecto base para el desarrollo de una API REST utilizando:
 
 ### Guía de los metodos de controller o Endpoints
 
+- link de la carpeta de Postman para realizar consulta:
+- https://www.postman.com/crimson-firefly-231267/workspace/practica/collection/43029379-1ab15c5f-f7d2-4b4c-a4a7-6e49d1f4a378?action=share&creator=43029379
+
 |Método|Endpoint|Descripción|
 |------|--------|-------------|
 |GET|/api/libros o /api/books?size=5&page=0 |trae todos lo datos paginados por defecto en 5 datos si no se ingresa el valor|
