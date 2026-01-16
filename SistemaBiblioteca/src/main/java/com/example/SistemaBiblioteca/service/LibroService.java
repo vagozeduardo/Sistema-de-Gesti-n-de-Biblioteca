@@ -75,7 +75,7 @@ public class LibroService implements ILibroService {
     @Override
     public void eliminar(Integer id) {
         if (!repo.existsById(id))
-            throw new RuntimeException("Dato no encontrado");
+            throw new NotFoundException("Dato con el "+id+" no fue encontrado");
 
         repo.deleteById(id);
 
