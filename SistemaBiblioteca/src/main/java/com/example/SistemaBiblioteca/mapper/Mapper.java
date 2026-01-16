@@ -6,10 +6,14 @@ import com.example.SistemaBiblioteca.model.Libro;
 public class Mapper {
 
     // Mapeo de Libro a LibroDTO
+    // se mapea el entity/model al DTO que se usara para manipular los datos
     public static LibroDTO toDTO(Libro l){
+
+        // verifica que sea un dato existente o se envia un null para evitar errores
         if (l == null)
             return null;
 
+        // se mapea el DTO relacionando cada campo con el campo del model
         return LibroDTO.builder()
                 .id(l.getId())
                 .titulo(l.getTitulo())

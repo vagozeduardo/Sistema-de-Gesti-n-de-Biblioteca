@@ -8,8 +8,15 @@ import java.util.List;
 public interface LibroRepository extends JpaRepository<Libro,Integer> {
 
     // Busqueda (query) personalizada ya sea con titulo o autor
-    List<Libro> findByTituloIgnoreCaseOrAutorIgnoreCase(String titulo, String autor);
 
+    /*
+    * se modifco para que no busque la conincidencia exacta, mas bien si contiene esos valores con el "Containing":
+    * codigo anterior: "findByTituloIgnoreCaseOrAutorIgnoreCase"
+    *
+     */
+    List<Libro> findByTituloContainingIgnoreCaseOrAutorContainingIgnoreCase(String titulo, String autor);
+
+    // se definio un consulta para buscar por el ISBN para una validadcion
     boolean existsByISBN(String ISBN);
     //Optional<Libro> findByIsbn(String isbn);
 

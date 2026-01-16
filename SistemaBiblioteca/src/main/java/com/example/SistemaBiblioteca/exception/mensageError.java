@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+
+// El esquema del mensaje que se desea decolver
 public class mensageError {
     @Schema(description = "Variable para guardar el tipo de error o status generado")
     private HttpStatus status;
